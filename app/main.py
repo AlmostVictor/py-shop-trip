@@ -1,25 +1,44 @@
-from datetime import datetime
+import datetime
 import json
-from customer import Customer
-from shop import Shop
+
+from app.customer import Customer
+from app.shop import Shop
 
 
 def shop_trip() -> None:
-    with open("app\config.json", "r") as file:
+    with open("app/config.json", "r") as file:
         config = json.load(file)
 
     shops_list = [Shop(shop) for shop in config["shops"]]
     customers_list = [Customer(person) for person in config["customers"]]
     for person in customers_list:
-        print(f"{person.name} has {person.money} dollars")
+        print(f"{person.name} has {person.money} dollars\n")
 
+        costs = {}
         choosing = {}
         for shop in shops_list:
-            choosing[shop]: person.total_cost(person, shop, config["FUEL_PRICE"])
-            print(f"{person.name}'s trip to the {shop.name} costs {choosing[shop]}")
+            costs[shop] = (
+                person.fuel_cost(shop, config["FUEL_PRICE"]),
+                shop.purchase_receipt(person.product_cart)
+            )
+            choosing[shop] = costs[shop][0] + sum(costs[shop][1].values())
+            print(f"{person.name}'s trip to the {shop.name} "
+                  f"costs {round(choosing[shop], 2)}\n")
 
-        cheapest = min(choosing)
+        cheapest = min(choosing, key=choosing.get)
         if choosing[cheapest] < person.money:
-            person.trip_info(cheapest, datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+            person.trip_info(
+                cheapest,
+                datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+                costs[cheapest][1]
+            )
             person.money -= choosing[cheapest]
-            print(f"{person.name} now has {person.money} dollars")
+            print("Total cost is "
+                  f"{round(choosing[cheapest] - costs[cheapest][0], 2)}\n"
+                  "See you again!\n\n"
+                  f"{person.name} rides home\n"
+                  f"{person.name} now has {person.money} dollars\n")
+
+        else:
+            print(f"{person.name} doesn't have enough money "
+                  "to make a purchase in any shop\n")

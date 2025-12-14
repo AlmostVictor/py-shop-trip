@@ -4,11 +4,8 @@ class Shop:
         self.coords = shop_dict["location"]
         self.products = shop_dict["products"]
 
-    def purchase_receipt(self, product_cart: dict) -> tuple:
-        total = 0
-        products_cost = {}
+    def purchase_receipt(self, product_cart: dict) -> dict:
+        receipt = {}
         for product in product_cart.keys():
-            cost = product_cart[product] * self.products[product]
-            products_cost[product] = (product_cart[product], cost)
-            total += cost
-        return total, products_cost
+            receipt[product]: product_cart[product] * self.products[product]
+        return receipt
