@@ -11,8 +11,9 @@ class Customer:
         self.fuel_for_1_km = person_dict["car"]["fuel_consumption"] / 100
 
     def fuel_cost(self, shop: Shop, fuel_price: float) -> float:
-        return round(dist(shop.coords, self.coords) *\
-            self.fuel_for_1_km * fuel_price * 2, 2)
+        return round(dist(
+            shop.coords, self.coords
+        ) * self.fuel_for_1_km * fuel_price * 2, 2)
 
     def trip_info(self, shop: Shop, date: str, cheque: dict) -> None:
         print(f"{self.name} rides to {shop.name}\n\n"
