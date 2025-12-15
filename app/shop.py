@@ -7,5 +7,5 @@ class Shop:
     def purchase_receipt(self, product_cart: dict) -> dict:
         receipt = {}
         for product in product_cart.keys():
-            receipt[product]: product_cart[product] * self.products[product]
+            receipt[product] = product_cart[product] * self.products[product]
         return receipt

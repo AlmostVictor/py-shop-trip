@@ -32,13 +32,15 @@ def shop_trip() -> None:
                 datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
                 costs[cheapest][1]
             )
+            home_coords = person.coords
+            person.coords = cheapest.coords
             person.money -= choosing[cheapest]
             print("Total cost is "
                   f"{round(choosing[cheapest] - costs[cheapest][0], 2)}\n"
                   "See you again!\n\n"
                   f"{person.name} rides home\n"
-                  f"{person.name} now has {person.money} dollars\n")
-
+                  f"{person.name} now has {round(person.money, 2)} dollars\n")
+            person.coords = home_coords
         else:
             print(f"{person.name} doesn't have enough money "
                   "to make a purchase in any shop\n")

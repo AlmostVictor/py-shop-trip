@@ -21,5 +21,5 @@ class Customer:
               "You have bought:\n")
 
         for product, price in cheque.items():
-            print(f"{self.product_cart[product]}"
+            print(f"{self.product_cart[product]} "
                   f"{product}s for {price} dollars\n")
