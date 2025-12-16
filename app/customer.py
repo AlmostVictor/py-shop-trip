@@ -22,5 +22,7 @@ class Customer:
               "You have bought:\n")
 
         for product, price in cheque.items():
+            if price % 1 == 0:
+                price = int(price)
             print(f"{self.product_cart[product]} "
                   f"{product}s for {price} dollars\n")
