@@ -35,7 +35,7 @@ def shop_trip() -> None:
             home_coords = person.coords
             person.coords = cheapest.coords
             person.money -= choosing[cheapest]
-            print("Total cost is"
+            print("Total cost is "
                   f"{round(choosing[cheapest] - costs[cheapest][0],
                            2)} dollars\n"
                   "See you again!\n\n"
