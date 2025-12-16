@@ -19,10 +19,10 @@ class Customer:
         print(f"{self.name} rides to {shop.name}\n\n"
               f"Date: {date}\n"
               f"Thanks, {self.name}, for your purchase!\n"
-              "You have bought:\n")
+              "You have bought:")
 
         for product, price in cheque.items():
             if price % 1 == 0:
                 price = int(price)
             print(f"{self.product_cart[product]} "
-                  f"{product}s for {price} dollars\n")
+                  f"{product}s for {price} dollars")
